@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  web_body:
+    build:
+      dockerfile: src/Dockerfile
+    command: gunicorn --bind 0.0.0.0:5001 wsgi:app
+    env_file:
+      - .env
+    ports:
+      - "8085:5001"
+    container_name: data_provider_api
+    networks:
+      - default
+
+  database:
+    image: mongo
+    restart: always
+    ports:
+      - "27027:27017"
+    expose:
+      - "27027"
+    volumes:
+      - ./data:/data/db
+    container_name: data_provider_mongo
+    env_file:
+      - .env
+    networks:
+      - default
+
+networks:
+  default:
+    external:
+      name: schoolam-network

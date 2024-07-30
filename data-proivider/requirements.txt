@@ -1,0 +1,7 @@
+pymongo
+Flask
+gunicorn
+requests
+flask-cors
+pyjwt
+attrs

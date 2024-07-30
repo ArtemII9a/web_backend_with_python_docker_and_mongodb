@@ -1,0 +1,17 @@
+services:
+  web_body:
+    build:
+      dockerfile: src/Dockerfile
+    command: gunicorn --bind 0.0.0.0:5001 wsgi:app
+    env_file:
+      - .env
+    ports:
+      - "8090:5001"
+    container_name: security_service_api
+    networks:
+      - default
+
+networks:
+  default:
+    external:
+      name: schoolam-network
